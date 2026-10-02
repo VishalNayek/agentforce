@@ -31,6 +31,7 @@ public without sharing class SendEmailWithVerificationCode {
 
         User u = users[0];
         String code = String.valueOf(Math.mod(Math.abs(Crypto.getRandomInteger()), 900000) + 100000);
+        System.debug('Verification code--'+ code);
 
         Messaging.SingleEmailMessage msg = new Messaging.SingleEmailMessage();
         msg.setTargetObjectId(u.Id);
