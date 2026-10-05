@@ -12,8 +12,7 @@ config:
     description: "Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues."
 
 access:
-    default_agent_user: "soft_drink_agent@00dfj00000ewj1f1753338877.ext"
-
+    default_agent_user: "soft_drink_agent@00dgk00000aw9ct1530273725.ext"
 
 variables:
     active_flow: mutable string = ""
