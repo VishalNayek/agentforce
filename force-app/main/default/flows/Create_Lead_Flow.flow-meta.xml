@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Set_Lead_Failure</name>
+        <label>Set Lead Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>responseMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead creation failed. Please try again or contact your administrator.</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Lead_Success</name>
+        <label>Set Lead Success</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>createdLeadId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_Lead.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>responseMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SuccessMessage</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Autolaunched flow for the Lead Management Agent: creates a standalone Lead record from agent-supplied fields. LastName and Company are required; FirstName, Email, and Phone are optional. Returns createdLeadId and a responseMessage.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>SuccessMessage</name>
+        <dataType>String</dataType>
+        <expression>&quot;Lead created for &quot; &amp; IF(NOT(ISBLANK({!leadFirstName})), {!leadFirstName} &amp; &quot; &quot;, &quot;&quot;) &amp; {!leadLastName} &amp; &quot; at &quot; &amp; {!leadCompany} &amp; &quot;.&quot;</expression>
+    </formulas>
+    <interviewLabel>Create Lead Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create Lead Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Lead</name>
+        <label>Create Lead</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Lead_Success</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Set_Lead_Failure</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Company</field>
+            <value>
+                <elementReference>leadCompany</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email</field>
+            <value>
+                <elementReference>leadEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>leadFirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>leadLastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>leadPhone</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Lead</targetReference>
+        </connector>
+        <triggerType>None</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>The Id of the newly created Lead record. Blank if creation failed.</description>
+        <name>createdLeadId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>REQUIRED. The company name for the new lead.</description>
+        <name>leadCompany</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Optional email address for the new lead.</description>
+        <name>leadEmail</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Optional first name for the new lead.</description>
+        <name>leadFirstName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>REQUIRED. The last name for the new lead.</description>
+        <name>leadLastName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Optional phone number for the new lead.</description>
+        <name>leadPhone</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Output returned to the agent. On success: a brief confirming the lead created. On failure: an error notice.</description>
+        <name>responseMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

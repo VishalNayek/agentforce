@@ -1,0 +1,305 @@
+system:
+    instructions: "You are an AI Agent."
+    messages:
+        welcome: |
+            Hi, I'm an AI service assistant. How can I help you?
+        error: "Sorry, it looks like something has gone wrong."
+
+config:
+    agent_label: "Case Management Agent"
+    agent_template: "SvcCopilotTmpl__AgentforceServiceAgent"
+    developer_name: "Case_Management_Agent"
+    description: "Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues."
+
+access:
+    default_agent_user: "soft_drink_agent@00dfj00000ewj1f1753338877.ext"
+
+
+variables:
+    active_flow: mutable string = ""
+        description: "Tracks which subagent flow is in progress. Values: '' (none), 'create_case', 'update_case_status'."
+        visibility: "Internal"
+    caseSubject: mutable string = ""
+        description: "Subject line for the new case. Required."
+        visibility: "Internal"
+    caseDescription: mutable string = ""
+        description: "Description for the new case. Optional."
+        visibility: "Internal"
+    casePriority: mutable string = "Medium"
+        description: "Priority for the new case. One of: High, Medium, Low."
+        visibility: "Internal"
+    caseOrigin: mutable string = "Web"
+        description: "Origin for the new case. One of: Phone, Email, Web."
+        visibility: "Internal"
+    createdCaseId: mutable string = ""
+        description: "Id of the most recently created case."
+        visibility: "Internal"
+    createdCaseNumber: mutable string = ""
+        description: "Case Number of the most recently created case."
+        visibility: "Internal"
+    caseSearchTerm: mutable string = ""
+        description: "Case Number or Subject text used to find an existing case to update."
+        visibility: "Internal"
+    newCaseStatus: mutable string = ""
+        description: "The new Status value to apply to the matched case."
+        visibility: "Internal"
+    caseUpdateSuccess: mutable boolean = False
+        description: "Whether the most recent case status update found and updated a case."
+        visibility: "Internal"
+    caseUpdateId: mutable string = ""
+        description: "Id of the case updated by the most recent status update."
+        visibility: "Internal"
+    caseUpdateNumber: mutable string = ""
+        description: "Case Number of the case updated by the most recent status update."
+        visibility: "Internal"
+    caseUpdateMessage: mutable string = ""
+        description: "Result message from the most recent case status update."
+        visibility: "Internal"
+
+language:
+    default_locale: "en_US"
+    additional_locales: ""
+    all_additional_locales: False
+
+knowledge:
+    rag_feature_config_id: ""
+    citations_url: ""
+    citations_enabled: False
+
+start_agent agent_router:
+    label: "Agent Router"
+
+    description: "Welcomes the user and routes to Create Case or Update Case Status based on intent."
+
+    model_config:
+        model: "model://sfdc_ai__DefaultEinsteinHyperClassifier"
+
+    reasoning:
+        instructions: ->
+            if @variables.active_flow == "create_case":
+                transition to @subagent.Create_Case
+            if @variables.active_flow == "update_case_status":
+                transition to @subagent.Update_Case_Status
+
+            | Select the best tool to call based on conversation history and user's intent.
+
+        actions:
+            go_to_Create_Case: @utils.transition to @subagent.Create_Case
+                description: "Route here when the user wants to log or open a new case."
+                available when @variables.active_flow == "" or @variables.active_flow is None
+
+            go_to_Update_Case_Status: @utils.transition to @subagent.Update_Case_Status
+                description: "Route here when the user wants to change or update the status of an existing case."
+                available when @variables.active_flow == "" or @variables.active_flow is None
+
+subagent Create_Case:
+    label: "Create Case"
+
+    description: "Collects the required Case fields and creates a new Case record."
+
+    reasoning:
+        instructions: ->
+            set @variables.active_flow = "create_case"
+
+            | You are creating a new Case. Subject is required. Description, Priority
+              ("High", "Medium", or "Low"; default "Medium"), and Origin ("Phone", "Email",
+              or "Web"; default "Web") are optional — capture them if the user mentions
+              them, but don't block on them.
+
+            if @variables.caseSubject == "":
+                | Ask the user for a short subject line describing the case. If the user's
+                  message already contains a subject, description, priority, or origin,
+                  invoke {!@actions.set_case_fields} now with everything you found before
+                  asking for what's missing.
+
+            if @variables.caseSubject != "":
+                | The required field is present. Invoke {!@actions.Create_Case} now.
+
+        actions:
+            set_case_fields: @utils.setVariables
+                description: "Capture any case fields the user has provided so far (subject, description, priority, origin)."
+                with caseSubject = ...
+                with caseDescription = ...
+                with casePriority = ...
+                with caseOrigin = ...
+
+            Create_Case: @actions.Create_Case
+                with caseSubject = @variables.caseSubject
+                with caseDescription = @variables.caseDescription
+                with casePriority = @variables.casePriority
+                with caseOrigin = @variables.caseOrigin
+                set @variables.createdCaseId = @outputs.createdCaseId
+                set @variables.createdCaseNumber = @outputs.createdCaseNumber
+                transition to @subagent.Case_Creation_Confirmation
+
+    actions:
+        Create_Case:
+            description: "Creates a new Case record with the given fields."
+            label: "Create Case"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Creating case"
+            target: "flow://Create_Case_Flow"
+            inputs:
+                caseSubject: string
+                    description: "Required short subject line for the case."
+                    label: "caseSubject"
+                    is_required: True
+                    is_user_input: False
+                caseDescription: string
+                    description: "Optional description for the case."
+                    label: "caseDescription"
+                    is_required: False
+                    is_user_input: False
+                casePriority: string
+                    description: "Optional priority for the case. One of: High, Medium, Low."
+                    label: "casePriority"
+                    is_required: False
+                    is_user_input: False
+                caseOrigin: string
+                    description: "Optional origin for the case. One of: Phone, Email, Web."
+                    label: "caseOrigin"
+                    is_required: False
+                    is_user_input: False
+            outputs:
+                createdCaseId: string
+                    description: "The Id of the newly created Case record."
+                    label: "createdCaseId"
+                    filter_from_agent: False
+                    is_displayable: True
+                createdCaseNumber: string
+                    description: "The auto-generated Case Number of the newly created case."
+                    label: "createdCaseNumber"
+                    filter_from_agent: False
+                    is_displayable: True
+                responseMessage: string
+                    description: "A brief confirming the case created, or an error notice."
+                    label: "responseMessage"
+                    filter_from_agent: False
+                    is_displayable: True
+
+subagent Case_Creation_Confirmation:
+    label: "Case Creation Confirmation"
+
+    description: "Confirms the created case's details verbatim, then clears the flow so the user can start something else."
+
+    reasoning:
+        instructions: ->
+            | CASE CREATED. You MUST include the following details VERBATIM in your
+              response. Do NOT paraphrase, summarize, or omit any value:
+
+              - Case Number: {!@variables.createdCaseNumber}
+              - Case Id: {!@variables.createdCaseId}
+              - Subject: {!@variables.caseSubject}
+
+              Then ask if there's anything else you can help with.
+
+            set @variables.active_flow = ""
+            set @variables.caseSubject = ""
+            set @variables.caseDescription = ""
+            set @variables.casePriority = "Medium"
+            set @variables.caseOrigin = "Web"
+            set @variables.createdCaseId = ""
+            set @variables.createdCaseNumber = ""
+
+subagent Update_Case_Status:
+    label: "Update Case Status"
+
+    description: "Finds an existing case by case number or subject and updates its status."
+
+    reasoning:
+        instructions: ->
+            set @variables.active_flow = "update_case_status"
+
+            | You are updating an existing Case's status. You need two things: which case
+              (a Case Number or a piece of its Subject to search for) and the new status.
+              Valid Case Status values in this org are: "New", "Working", "Escalated",
+              "Closed". Map whatever the user says to the closest one of these, and ask
+              them to choose one of these exact values if it's ambiguous.
+
+            if @variables.caseSearchTerm == "" or @variables.newCaseStatus == "":
+                | Ask for whatever is still missing between which case (Case Number or
+                  Subject) and the new status. If the user's message already contains
+                  either, invoke {!@actions.set_case_update_fields} now with what you found
+                  before asking for the rest.
+
+            if @variables.caseSearchTerm != "" and @variables.newCaseStatus != "":
+                | Both fields are present. Invoke {!@actions.Update_Case_Status} now.
+
+        actions:
+            set_case_update_fields: @utils.setVariables
+                description: "Capture the case search term and/or new status the user has provided so far."
+                with caseSearchTerm = ...
+                with newCaseStatus = ...
+
+            Update_Case_Status: @actions.Update_Case_Status
+                with caseSearchTerm = @variables.caseSearchTerm
+                with newCaseStatus = @variables.newCaseStatus
+                set @variables.caseUpdateSuccess = @outputs.success
+                set @variables.caseUpdateId = @outputs.caseId
+                set @variables.caseUpdateNumber = @outputs.caseNumber
+                set @variables.caseUpdateMessage = @outputs.responseMessage
+                transition to @subagent.Case_Update_Confirmation
+
+    actions:
+        Update_Case_Status:
+            description: "Finds a Case by exact Case Number or by Subject (contains match, most recently created wins) and updates its Status."
+            label: "Update Case Status"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Updating case status"
+            target: "flow://Update_Case_Status_Flow"
+            inputs:
+                caseSearchTerm: string
+                    description: "Case Number (exact match) or Subject text (contains match) used to find the case."
+                    label: "caseSearchTerm"
+                    is_required: True
+                    is_user_input: False
+                newCaseStatus: string
+                    description: "The new Status value. Must be one of: New, Working, Escalated, Closed."
+                    label: "newCaseStatus"
+                    is_required: True
+                    is_user_input: False
+            outputs:
+                success: boolean
+                    description: "True if a matching case was found and updated."
+                    label: "success"
+                    filter_from_agent: False
+                    is_displayable: True
+                caseId: string
+                    description: "The Id of the updated case. Blank if not found."
+                    label: "caseId"
+                    filter_from_agent: False
+                    is_displayable: True
+                caseNumber: string
+                    description: "The Case Number of the updated case. Blank if not found."
+                    label: "caseNumber"
+                    filter_from_agent: False
+                    is_displayable: True
+                responseMessage: string
+                    description: "A message describing the outcome."
+                    label: "responseMessage"
+                    filter_from_agent: False
+                    is_displayable: True
+
+subagent Case_Update_Confirmation:
+    label: "Case Update Confirmation"
+
+    description: "Confirms the case status update outcome verbatim, then clears the flow so the user can start something else."
+
+    reasoning:
+        instructions: ->
+            | You MUST include the following result VERBATIM in your response. Do NOT
+              paraphrase, summarize, or omit it:
+
+              {!@variables.caseUpdateMessage}
+
+              Then ask if there's anything else you can help with.
+
+            set @variables.active_flow = ""
+            set @variables.caseSearchTerm = ""
+            set @variables.newCaseStatus = ""
+            set @variables.caseUpdateSuccess = False
+            set @variables.caseUpdateId = ""
+            set @variables.caseUpdateNumber = ""
+            set @variables.caseUpdateMessage = ""

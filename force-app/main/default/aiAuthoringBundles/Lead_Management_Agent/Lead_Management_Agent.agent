@@ -1,0 +1,296 @@
+system:
+    instructions: "You are an AI Agent."
+    messages:
+        welcome: |
+            Hi, I'm an AI service assistant. How can I help you?
+        error: "Sorry, it looks like something has gone wrong."
+
+config:
+    agent_label: "Lead Management Agent"
+    agent_template: "SvcCopilotTmpl__AgentforceServiceAgent"
+    developer_name: "Lead_Management_Agent"
+    description: "Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues."
+
+access:
+    default_agent_user: "soft_drink_agent@00dfj00000ewj1f1753338877.ext"
+
+
+variables:
+    active_flow: mutable string = ""
+        description: "Tracks which subagent flow is in progress. Values: '' (none), 'create_lead', 'update_lead_status'."
+        visibility: "Internal"
+    leadFirstName: mutable string = ""
+        description: "First name for the new lead. Optional."
+        visibility: "Internal"
+    leadLastName: mutable string = ""
+        description: "Last name for the new lead. Required."
+        visibility: "Internal"
+    leadCompany: mutable string = ""
+        description: "Company name for the new lead. Required."
+        visibility: "Internal"
+    leadEmail: mutable string = ""
+        description: "Email for the new lead. Optional."
+        visibility: "Internal"
+    leadPhone: mutable string = ""
+        description: "Phone number for the new lead. Optional."
+        visibility: "Internal"
+    createdLeadId: mutable string = ""
+        description: "Id of the most recently created lead."
+        visibility: "Internal"
+    leadSearchTerm: mutable string = ""
+        description: "Company or last name used to find an existing lead to update."
+        visibility: "Internal"
+    newLeadStatus: mutable string = ""
+        description: "The new Status value to apply to the matched lead."
+        visibility: "Internal"
+    leadUpdateSuccess: mutable boolean = False
+        description: "Whether the most recent lead status update found and updated a lead."
+        visibility: "Internal"
+    leadUpdateId: mutable string = ""
+        description: "Id of the lead updated by the most recent status update."
+        visibility: "Internal"
+    leadUpdateMessage: mutable string = ""
+        description: "Result message from the most recent lead status update."
+        visibility: "Internal"
+
+language:
+    default_locale: "en_US"
+    additional_locales: ""
+    all_additional_locales: False
+
+knowledge:
+    rag_feature_config_id: ""
+    citations_url: ""
+    citations_enabled: False
+
+start_agent agent_router:
+    label: "Agent Router"
+
+    description: "Welcomes the user and routes to Create Lead or Update Lead Status based on intent."
+
+    model_config:
+        model: "model://sfdc_ai__DefaultEinsteinHyperClassifier"
+
+    reasoning:
+        instructions: ->
+            if @variables.active_flow == "create_lead":
+                transition to @subagent.Create_Lead
+            if @variables.active_flow == "update_lead_status":
+                transition to @subagent.Update_Lead_Status
+
+            | Select the best tool to call based on conversation history and user's intent.
+
+        actions:
+            go_to_Create_Lead: @utils.transition to @subagent.Create_Lead
+                description: "Route here when the user wants to create a new lead (e.g. logging a new prospect or contact they met)."
+                available when @variables.active_flow == "" or @variables.active_flow is None
+
+            go_to_Update_Lead_Status: @utils.transition to @subagent.Update_Lead_Status
+                description: "Route here when the user wants to change or update the status of an existing lead."
+                available when @variables.active_flow == "" or @variables.active_flow is None
+
+subagent Create_Lead:
+    label: "Create Lead"
+
+    description: "Collects the required Lead fields and creates a new Lead record."
+
+    reasoning:
+        instructions: ->
+            set @variables.active_flow = "create_lead"
+
+            | You are creating a new Lead. Last Name and Company are required. First Name,
+              Email, and Phone are optional — capture them if the user mentions them, but
+              don't block on them.
+
+            if @variables.leadLastName == "" or @variables.leadCompany == "":
+                | Ask for whatever is still missing among Last Name and Company. If the
+                  user's message already contains any of Last Name, Company, First Name,
+                  Email, or Phone, invoke {!@actions.set_lead_fields} now with everything you
+                  found before asking for the rest.
+
+            if @variables.leadLastName != "" and @variables.leadCompany != "":
+                | All required fields are present. Invoke {!@actions.Create_Lead} now.
+
+        actions:
+            set_lead_fields: @utils.setVariables
+                description: "Capture any lead fields the user has provided so far (first name, last name, company, email, phone)."
+                with leadFirstName = ...
+                with leadLastName = ...
+                with leadCompany = ...
+                with leadEmail = ...
+                with leadPhone = ...
+
+            Create_Lead: @actions.Create_Lead
+                with leadFirstName = @variables.leadFirstName
+                with leadLastName = @variables.leadLastName
+                with leadCompany = @variables.leadCompany
+                with leadEmail = @variables.leadEmail
+                with leadPhone = @variables.leadPhone
+                set @variables.createdLeadId = @outputs.createdLeadId
+                transition to @subagent.Lead_Creation_Confirmation
+
+    actions:
+        Create_Lead:
+            description: "Creates a new Lead record with the given fields."
+            label: "Create Lead"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Creating lead"
+            target: "flow://Create_Lead_Flow"
+            inputs:
+                leadFirstName: string
+                    description: "Optional first name for the new lead."
+                    label: "leadFirstName"
+                    is_required: False
+                    is_user_input: False
+                leadLastName: string
+                    description: "Required last name for the new lead."
+                    label: "leadLastName"
+                    is_required: True
+                    is_user_input: False
+                leadCompany: string
+                    description: "Required company name for the new lead."
+                    label: "leadCompany"
+                    is_required: True
+                    is_user_input: False
+                leadEmail: string
+                    description: "Optional email address for the new lead."
+                    label: "leadEmail"
+                    is_required: False
+                    is_user_input: False
+                leadPhone: string
+                    description: "Optional phone number for the new lead."
+                    label: "leadPhone"
+                    is_required: False
+                    is_user_input: False
+            outputs:
+                createdLeadId: string
+                    description: "The Id of the newly created Lead record."
+                    label: "createdLeadId"
+                    filter_from_agent: False
+                    is_displayable: True
+                responseMessage: string
+                    description: "A brief confirming the lead created, or an error notice."
+                    label: "responseMessage"
+                    filter_from_agent: False
+                    is_displayable: True
+
+subagent Lead_Creation_Confirmation:
+    label: "Lead Creation Confirmation"
+
+    description: "Confirms the created lead's details verbatim, then clears the flow so the user can start something else."
+
+    reasoning:
+        instructions: ->
+            | LEAD CREATED. You MUST include the following details VERBATIM in your
+              response. Do NOT paraphrase, summarize, or omit any value:
+
+              - Lead Id: {!@variables.createdLeadId}
+              - Name: {!@variables.leadFirstName} {!@variables.leadLastName}
+              - Company: {!@variables.leadCompany}
+
+              Then ask if there's anything else you can help with.
+
+            set @variables.active_flow = ""
+            set @variables.leadFirstName = ""
+            set @variables.leadLastName = ""
+            set @variables.leadCompany = ""
+            set @variables.leadEmail = ""
+            set @variables.leadPhone = ""
+            set @variables.createdLeadId = ""
+
+subagent Update_Lead_Status:
+    label: "Update Lead Status"
+
+    description: "Finds an existing lead by company or last name and updates its status."
+
+    reasoning:
+        instructions: ->
+            set @variables.active_flow = "update_lead_status"
+
+            | You are updating an existing Lead's status. You need two things: which lead
+              (a company name or last name to search for) and the new status. Valid Lead
+              Status values in this org are: "Open - Not Contacted", "Working - Contacted",
+              "Closed - Converted", "Closed - Not Converted". Map whatever the user says to
+              the closest one of these, and ask them to choose one of these exact values if
+              it's ambiguous.
+
+            if @variables.leadSearchTerm == "" or @variables.newLeadStatus == "":
+                | Ask for whatever is still missing between which lead (company or last
+                  name) and the new status. If the user's message already contains either,
+                  invoke {!@actions.set_lead_update_fields} now with what you found before
+                  asking for the rest.
+
+            if @variables.leadSearchTerm != "" and @variables.newLeadStatus != "":
+                | Both fields are present. Invoke {!@actions.Update_Lead_Status} now.
+
+        actions:
+            set_lead_update_fields: @utils.setVariables
+                description: "Capture the lead search term and/or new status the user has provided so far."
+                with leadSearchTerm = ...
+                with newLeadStatus = ...
+
+            Update_Lead_Status: @actions.Update_Lead_Status
+                with leadSearchTerm = @variables.leadSearchTerm
+                with newLeadStatus = @variables.newLeadStatus
+                set @variables.leadUpdateSuccess = @outputs.success
+                set @variables.leadUpdateId = @outputs.leadId
+                set @variables.leadUpdateMessage = @outputs.responseMessage
+                transition to @subagent.Lead_Update_Confirmation
+
+    actions:
+        Update_Lead_Status:
+            description: "Finds a Lead by Company or Last Name (contains match, most recently created wins) and updates its Status."
+            label: "Update Lead Status"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Updating lead status"
+            target: "flow://Update_Lead_Status_Flow"
+            inputs:
+                leadSearchTerm: string
+                    description: "Company or last name used to find the lead."
+                    label: "leadSearchTerm"
+                    is_required: True
+                    is_user_input: False
+                newLeadStatus: string
+                    description: "The new Status value. Must be one of: Open - Not Contacted, Working - Contacted, Closed - Converted, Closed - Not Converted."
+                    label: "newLeadStatus"
+                    is_required: True
+                    is_user_input: False
+            outputs:
+                success: boolean
+                    description: "True if a matching lead was found and updated."
+                    label: "success"
+                    filter_from_agent: False
+                    is_displayable: True
+                leadId: string
+                    description: "The Id of the updated lead. Blank if not found."
+                    label: "leadId"
+                    filter_from_agent: False
+                    is_displayable: True
+                responseMessage: string
+                    description: "A message describing the outcome."
+                    label: "responseMessage"
+                    filter_from_agent: False
+                    is_displayable: True
+
+subagent Lead_Update_Confirmation:
+    label: "Lead Update Confirmation"
+
+    description: "Confirms the lead status update outcome verbatim, then clears the flow so the user can start something else."
+
+    reasoning:
+        instructions: ->
+            | You MUST include the following result VERBATIM in your response. Do NOT
+              paraphrase, summarize, or omit it:
+
+              {!@variables.leadUpdateMessage}
+
+              Then ask if there's anything else you can help with.
+
+            set @variables.active_flow = ""
+            set @variables.leadSearchTerm = ""
+            set @variables.newLeadStatus = ""
+            set @variables.leadUpdateSuccess = False
+            set @variables.leadUpdateId = ""
+            set @variables.leadUpdateMessage = ""
