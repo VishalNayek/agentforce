@@ -1,0 +1,81 @@
+<template>
+    <div class="cockpit">
+        <!-- Hero / greeting -->
+        <div class="cockpit-hero">
+            <div class="cockpit-hero__text">
+                <p class="cockpit-hero__eyebrow">{todayLabel}</p>
+                <h1 class="cockpit-hero__title">{greeting}, {repName}</h1>
+                <p class="cockpit-hero__sub">Here&apos;s your field activity at a glance.</p>
+            </div>
+            <div class="cockpit-hero__pulse">
+                <span class="cockpit-pulse-dot"></span>
+                Live &middot; synced just now
+            </div>
+        </div>
+
+        <!-- KPI tiles -->
+        <div class="slds-grid slds-wrap slds-gutters cockpit-kpis">
+            <template for:each={kpis} for:item="kpi">
+                <div
+                    key={kpi.key}
+                    class="slds-col slds-size_1-of-2 slds-large-size_1-of-4 cockpit-kpis__col"
+                >
+                    <div class="cockpit-kpi">
+                        <div class={kpi.iconClass}>
+                            <lightning-icon
+                                icon-name={kpi.icon}
+                                size="small"
+                                variant="inverse"
+                            ></lightning-icon>
+                        </div>
+                        <div class="cockpit-kpi__body">
+                            <p class="cockpit-kpi__value">{kpi.value}</p>
+                            <p class="cockpit-kpi__label">{kpi.label}</p>
+                            <p class="cockpit-kpi__meta">{kpi.meta}</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Section heading -->
+        <div class="cockpit-section-head">
+            <h2 class="cockpit-section-head__title">Launch an assistant</h2>
+            <p class="cockpit-section-head__sub">
+                Your Agentforce assistants, one tap away.
+            </p>
+        </div>
+
+        <!-- Agent launcher cards -->
+        <div class="slds-grid slds-wrap slds-gutters cockpit-actions">
+            <template for:each={actions} for:item="a">
+                <div
+                    key={a.key}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 cockpit-actions__col"
+                >
+                    <button
+                        type="button"
+                        class="cockpit-action"
+                        data-agent={a.key}
+                        onclick={handleLaunch}
+                        disabled={launching}
+                    >
+                        <div class={a.iconClass}>
+                            <lightning-icon
+                                icon-name={a.icon}
+                                size="medium"
+                                variant="inverse"
+                            ></lightning-icon>
+                        </div>
+                        <h3 class="cockpit-action__title">{a.title}</h3>
+                        <p class="cockpit-action__desc">{a.desc}</p>
+                        <span class="cockpit-action__cta">
+                            {a.cta}
+                            <span class="cockpit-action__arrow">&rarr;</span>
+                        </span>
+                    </button>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

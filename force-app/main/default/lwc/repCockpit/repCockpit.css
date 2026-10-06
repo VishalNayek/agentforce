@@ -1,0 +1,251 @@
+:host {
+    display: block;
+    --cockpit-radius: 16px;
+    --cockpit-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+    --cockpit-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.cockpit {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    padding: 0.5rem;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.cockpit-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.75rem 1.75rem 1.75rem;
+    border-radius: var(--cockpit-radius);
+    background: linear-gradient(135deg, #4b34c9 0%, #6d4bf0 45%, #8e5bff 100%);
+    color: #fff;
+    box-shadow: var(--cockpit-shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.cockpit-hero::after {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+}
+
+.cockpit-hero__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    opacity: 0.85;
+    margin: 0 0 0.35rem;
+}
+
+.cockpit-hero__title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+}
+
+.cockpit-hero__sub {
+    margin: 0.4rem 0 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.cockpit-hero__pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+}
+
+.cockpit-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    animation: cockpit-pulse 1.8s infinite;
+}
+
+@keyframes cockpit-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+/* ── KPI tiles ────────────────────────────────────────────────────────── */
+.cockpit-kpis {
+    margin-top: 1.25rem;
+}
+
+.cockpit-kpis__col {
+    margin-bottom: 1rem;
+}
+
+.cockpit-kpi {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #ebe9f5;
+    border-radius: var(--cockpit-radius);
+    padding: 1.1rem 1.2rem;
+    box-shadow: var(--cockpit-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.cockpit-kpi:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--cockpit-shadow-hover);
+}
+
+.cockpit-kpi__icon {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.cockpit-kpi__icon_blue { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+.cockpit-kpi__icon_amber { background: linear-gradient(135deg, #d97706, #f59e0b); }
+.cockpit-kpi__icon_green { background: linear-gradient(135deg, #059669, #10b981); }
+.cockpit-kpi__icon_purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+
+.cockpit-kpi__body { min-width: 0; }
+
+.cockpit-kpi__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #181818;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.cockpit-kpi__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin: 0.15rem 0 0;
+}
+
+.cockpit-kpi__meta {
+    font-size: 0.74rem;
+    color: #8b8b9a;
+    margin: 0.1rem 0 0;
+}
+
+/* ── Section heading ──────────────────────────────────────────────────── */
+.cockpit-section-head {
+    margin: 0.75rem 0.25rem 1rem;
+}
+
+.cockpit-section-head__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #181818;
+    margin: 0;
+}
+
+.cockpit-section-head__sub {
+    font-size: 0.85rem;
+    color: #8b8b9a;
+    margin: 0.2rem 0 0;
+}
+
+/* ── Agent launcher cards ─────────────────────────────────────────────── */
+.cockpit-actions__col {
+    margin-bottom: 1rem;
+}
+
+.cockpit-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ebe9f5;
+    border-radius: var(--cockpit-radius);
+    padding: 1.4rem;
+    box-shadow: var(--cockpit-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.cockpit-action:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: var(--cockpit-shadow-hover);
+    border-color: #d7d0f7;
+}
+
+.cockpit-action:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.cockpit-action__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.cockpit-action__icon_sales { background: linear-gradient(135deg, #2563eb, #4f46e5); }
+.cockpit-action__icon_booking { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+.cockpit-action__icon_onboarding { background: linear-gradient(135deg, #db2777, #f43f5e); }
+
+.cockpit-action__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #181818;
+    margin: 0;
+}
+
+.cockpit-action__desc {
+    font-size: 0.85rem;
+    color: #6b6b7b;
+    line-height: 1.45;
+    margin: 0.45rem 0 1rem;
+    flex: 1 1 auto;
+}
+
+.cockpit-action__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #5b3df0;
+}
+
+.cockpit-action__arrow {
+    transition: transform 0.18s ease;
+}
+
+.cockpit-action:hover:not(:disabled) .cockpit-action__arrow {
+    transform: translateX(4px);
+}
