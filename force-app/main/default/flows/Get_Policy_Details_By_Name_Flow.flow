@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Add_Individual_Record_ID</name>
+        <label>Add Individual Record ID</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>SourceIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_over_junction_record.SourceRecordId__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_over_junction_record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Add_Policy_to_Response</name>
+        <label>Add Policy to Response</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>policySummaries</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>PolicySummaryRow</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Policies</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Customer_Not_found</name>
+        <label>Customer Not found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>policySummaries</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Customer Not Found, Please provide correct Name</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Person_Name</name>
+        <label>Set Person Name</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>PersonName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Unified_Individual.ssot__PersonName__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_Customer_Found</name>
+        <label>Check Customer Found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Get_Identity_Links</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Found</defaultConnectorLabel>
+        <rules>
+            <name>Not_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Unified_Individual</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Customer_Not_found</targetReference>
+            </connector>
+            <label>Not Found</label>
+        </rules>
+    </decisions>
+    <description>Use this Action to find all the Policies of a Customer</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>PolicySummaryRow</name>
+        <dataType>String</dataType>
+        <expression>&quot;Policy Type: &quot; &amp; {!Loop_Policies.PolicyType_c__c} &amp; 
+&quot;; Policy Number : &quot; &amp;  {!Loop_Policies.PolicyNumber_c__c} &amp;
+&quot;; Premium Amount: &quot; &amp; TEXT({!Loop_Policies.Premium_Amount_Number__c}) &amp;
+&quot;; Start Date: &quot; &amp; TEXT({!Loop_Policies.PolicyStartDate_c__c}) &amp;
+&quot;; End Date: &quot; &amp; TEXT({!Loop_Policies.PolicyEndDate_c__c}) &amp;
+&quot;; Status: &quot; &amp; {!Loop_Policies.PolicyStatus_c__c} &amp;
+&quot;; Payment Status: &quot; &amp; {!Loop_Policies.PaymentStatus_c__c} &amp;
+&quot;; Last Premium Paid: &quot; &amp; TEXT({!Loop_Policies.LastPremiumPaidDate_c__c})</expression>
+    </formulas>
+    <interviewLabel>Get Policy Details By Name Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Get Policy Details By Name Flow</label>
+    <loops>
+        <name>Loop_over_junction_record</name>
+        <label>Loop over junction record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_Identity_Links</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Add_Individual_Record_ID</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Get_Policies</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_Policies</name>
+        <label>Loop Policies</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_Policies</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Add_Policy_to_Response</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Set_Person_Name</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Identity_Links</name>
+        <label>Get Identity Links</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_over_junction_record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UnifiedRecordId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Unified_Individual.ssot__Id__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>IndividualIdentityLink__dlm</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Policies</name>
+        <label>Get Policies</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Policies</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Account_c__c</field>
+            <operator>In</operator>
+            <value>
+                <elementReference>SourceIds</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>PolicyholderId__c</field>
+            <operator>In</operator>
+            <value>
+                <elementReference>SourceIds</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>PolicyholderKeyRef__c</field>
+            <operator>In</operator>
+            <value>
+                <elementReference>SourceIds</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Policy__dlm</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Unified_Individual</name>
+        <label>Get Unified Individual</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Customer_Found</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>ssot__FirstName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CustomerName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ssot__PersonName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>CustomerName</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>UnifiedIndividual__dlm</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Unified_Individual</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>The first Name or The full name of The customer</description>
+        <name>CustomerName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>The Full name of The Customer</description>
+        <name>PersonName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>policySummaries</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>SourceIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

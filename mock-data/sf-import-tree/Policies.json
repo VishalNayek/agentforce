@@ -1,0 +1,786 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef1"
+      },
+      "Account__c": "@AccountRef1",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-33196",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 17420,
+      "PolicyStartDate__c": "2025-03-05",
+      "PolicyEndDate__c": "2026-03-04",
+      "PolicyStatus__c": "Lapsed",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-03-05",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef2"
+      },
+      "Account__c": "@AccountRef2",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-94582",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 19978,
+      "PolicyStartDate__c": "2024-07-05",
+      "PolicyEndDate__c": "2025-07-04",
+      "PolicyStatus__c": "Lapsed",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2024-07-05",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef3"
+      },
+      "Account__c": "@AccountRef3",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-41728",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 6265,
+      "PolicyStartDate__c": "2025-10-20",
+      "PolicyEndDate__c": "2026-10-19",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-10-20",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef4"
+      },
+      "Account__c": "@AccountRef4",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-11696",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 8367,
+      "PolicyStartDate__c": "2025-09-05",
+      "PolicyEndDate__c": "2026-09-04",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2025-09-05",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef5"
+      },
+      "Account__c": "@AccountRef5",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-77434",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 4251,
+      "PolicyStartDate__c": "2025-02-20",
+      "PolicyEndDate__c": "2026-02-19",
+      "PolicyStatus__c": "Cancelled",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-02-20",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef6"
+      },
+      "Account__c": "@AccountRef6",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-80743",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 17190,
+      "PolicyStartDate__c": "2026-04-14",
+      "PolicyEndDate__c": "2027-04-13",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-04-14",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef7"
+      },
+      "Account__c": "@AccountRef7",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-13226",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 21539,
+      "PolicyStartDate__c": "2025-10-07",
+      "PolicyEndDate__c": "2026-10-06",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Delinquent",
+      "LastPremiumPaidDate__c": "2025-10-07",
+      "PolicyViolationNotes__c": "One late renewal notice issued in prior term."
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef8"
+      },
+      "Account__c": "@AccountRef8",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-84663",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 14624,
+      "PolicyStartDate__c": "2025-09-24",
+      "PolicyEndDate__c": "2026-09-23",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-09-24",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef9"
+      },
+      "Account__c": "@AccountRef9",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-71818",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 24010,
+      "PolicyStartDate__c": "2026-01-06",
+      "PolicyEndDate__c": "2027-01-05",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-01-06",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef10"
+      },
+      "Account__c": "@AccountRef10",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-88863",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 17033,
+      "PolicyStartDate__c": "2026-04-19",
+      "PolicyEndDate__c": "2027-04-18",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-04-19",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef11"
+      },
+      "Account__c": "@AccountRef11",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-13960",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 5357,
+      "PolicyStartDate__c": "2025-09-25",
+      "PolicyEndDate__c": "2026-09-24",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-09-25",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef12"
+      },
+      "Account__c": "@AccountRef12",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-54952",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 4648,
+      "PolicyStartDate__c": "2026-06-23",
+      "PolicyEndDate__c": "2027-06-22",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-06-23",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef13"
+      },
+      "Account__c": "@AccountRef13",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-51849",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 20566,
+      "PolicyStartDate__c": "2025-10-23",
+      "PolicyEndDate__c": "2026-10-22",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-10-23",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef14"
+      },
+      "Account__c": "@AccountRef14",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-60197",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 19548,
+      "PolicyStartDate__c": "2025-11-02",
+      "PolicyEndDate__c": "2026-11-01",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-11-02",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef15"
+      },
+      "Account__c": "@AccountRef15",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-26001",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 5362,
+      "PolicyStartDate__c": "2025-10-19",
+      "PolicyEndDate__c": "2026-10-18",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-10-19",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef16"
+      },
+      "Account__c": "@AccountRef16",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-19653",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 22550,
+      "PolicyStartDate__c": "2025-10-07",
+      "PolicyEndDate__c": "2026-10-06",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-10-07",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef17"
+      },
+      "Account__c": "@AccountRef17",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-80957",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 8053,
+      "PolicyStartDate__c": "2024-11-18",
+      "PolicyEndDate__c": "2025-11-17",
+      "PolicyStatus__c": "Lapsed",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2024-11-18",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef18"
+      },
+      "Account__c": "@AccountRef18",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-55012",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 5599,
+      "PolicyStartDate__c": "2025-10-22",
+      "PolicyEndDate__c": "2026-10-21",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-10-22",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef19"
+      },
+      "Account__c": "@AccountRef19",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-21161",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 14193,
+      "PolicyStartDate__c": "2025-08-19",
+      "PolicyEndDate__c": "2026-08-18",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-08-19",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef20"
+      },
+      "Account__c": "@AccountRef20",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-35337",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 8594,
+      "PolicyStartDate__c": "2026-04-06",
+      "PolicyEndDate__c": "2027-04-05",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-04-06",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef21"
+      },
+      "Account__c": "@AccountRef21",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-26480",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 11333,
+      "PolicyStartDate__c": "2026-04-18",
+      "PolicyEndDate__c": "2027-04-17",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-04-18",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef22"
+      },
+      "Account__c": "@AccountRef22",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-58752",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 13587,
+      "PolicyStartDate__c": "2026-02-15",
+      "PolicyEndDate__c": "2027-02-14",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-02-15",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef23"
+      },
+      "Account__c": "@AccountRef23",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-17203",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 10892,
+      "PolicyStartDate__c": "2026-01-24",
+      "PolicyEndDate__c": "2027-01-23",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-01-24",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef24"
+      },
+      "Account__c": "@AccountRef24",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-17192",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 23121,
+      "PolicyStartDate__c": "2025-08-03",
+      "PolicyEndDate__c": "2026-08-02",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-08-03",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef25"
+      },
+      "Account__c": "@AccountRef25",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-55700",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 6289,
+      "PolicyStartDate__c": "2025-09-20",
+      "PolicyEndDate__c": "2026-09-19",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-09-20",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef26"
+      },
+      "Account__c": "@AccountRef26",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-53512",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 8266,
+      "PolicyStartDate__c": "2026-06-02",
+      "PolicyEndDate__c": "2027-06-01",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-06-02",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef27"
+      },
+      "Account__c": "@AccountRef27",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-21799",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 13063,
+      "PolicyStartDate__c": "2025-12-26",
+      "PolicyEndDate__c": "2026-12-25",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-12-26",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef28"
+      },
+      "Account__c": "@AccountRef28",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-42172",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 6722,
+      "PolicyStartDate__c": "2025-09-12",
+      "PolicyEndDate__c": "2026-09-11",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-09-12",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef29"
+      },
+      "Account__c": "@AccountRef29",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-15759",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 20913,
+      "PolicyStartDate__c": "2025-09-08",
+      "PolicyEndDate__c": "2026-09-07",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-09-08",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef30"
+      },
+      "Account__c": "@AccountRef30",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-73189",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 24106,
+      "PolicyStartDate__c": "2026-06-11",
+      "PolicyEndDate__c": "2027-06-10",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-06-11",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef31"
+      },
+      "Account__c": "@AccountRef31",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-46653",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 11590,
+      "PolicyStartDate__c": "2026-04-21",
+      "PolicyEndDate__c": "2027-04-20",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-04-21",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef32"
+      },
+      "Account__c": "@AccountRef32",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-15060",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 18635,
+      "PolicyStartDate__c": "2026-01-26",
+      "PolicyEndDate__c": "2027-01-25",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-01-26",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef33"
+      },
+      "Account__c": "@AccountRef33",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-29337",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 7757,
+      "PolicyStartDate__c": "2026-06-26",
+      "PolicyEndDate__c": "2027-06-25",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-06-26",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef34"
+      },
+      "Account__c": "@AccountRef34",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-53941",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 23801,
+      "PolicyStartDate__c": "2026-02-03",
+      "PolicyEndDate__c": "2027-02-02",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-02-03",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef35"
+      },
+      "Account__c": "@AccountRef35",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-51411",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 12336,
+      "PolicyStartDate__c": "2026-04-23",
+      "PolicyEndDate__c": "2027-04-22",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-04-23",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef36"
+      },
+      "Account__c": "@AccountRef36",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-96765",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 7778,
+      "PolicyStartDate__c": "2025-12-02",
+      "PolicyEndDate__c": "2026-12-01",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-12-02",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef37"
+      },
+      "Account__c": "@AccountRef37",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-69713",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 12515,
+      "PolicyStartDate__c": "2026-02-16",
+      "PolicyEndDate__c": "2027-02-15",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-02-16",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef38"
+      },
+      "Account__c": "@AccountRef38",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-64979",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 11408,
+      "PolicyStartDate__c": "2025-10-18",
+      "PolicyEndDate__c": "2026-10-17",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2025-10-18",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef39"
+      },
+      "Account__c": "@AccountRef39",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-42478",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 16241,
+      "PolicyStartDate__c": "2025-12-12",
+      "PolicyEndDate__c": "2026-12-11",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-12-12",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef40"
+      },
+      "Account__c": "@AccountRef40",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-49270",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 16960,
+      "PolicyStartDate__c": "2025-12-21",
+      "PolicyEndDate__c": "2026-12-20",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-12-21",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef41"
+      },
+      "Account__c": "@AccountRef41",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-46819",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 18631,
+      "PolicyStartDate__c": "2025-11-24",
+      "PolicyEndDate__c": "2026-11-23",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2025-11-24",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef42"
+      },
+      "Account__c": "@AccountRef42",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-52233",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 21268,
+      "PolicyStartDate__c": "2026-03-22",
+      "PolicyEndDate__c": "2027-03-21",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-03-22",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef43"
+      },
+      "Account__c": "@AccountRef43",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-80062",
+      "PlanTier__c": "Senior Citizen",
+      "PremiumAmount__c": 13027,
+      "PolicyStartDate__c": "2026-03-12",
+      "PolicyEndDate__c": "2027-03-11",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-03-12",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef44"
+      },
+      "Account__c": "@AccountRef44",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-12652",
+      "PlanTier__c": "Group",
+      "PremiumAmount__c": 14687,
+      "PolicyStartDate__c": "2026-01-07",
+      "PolicyEndDate__c": "2027-01-06",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-01-07",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef45"
+      },
+      "Account__c": "@AccountRef45",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2024-55643",
+      "PlanTier__c": "Individual",
+      "PremiumAmount__c": 8500,
+      "PolicyStartDate__c": "2026-02-09",
+      "PolicyEndDate__c": "2027-02-08",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Current",
+      "LastPremiumPaidDate__c": "2026-02-09",
+      "PolicyViolationNotes__c": ""
+    },
+    {
+      "attributes": {
+        "type": "Policy__c",
+        "referenceId": "PolicyRef46"
+      },
+      "Account__c": "@AccountRef46",
+      "PolicyType__c": "Health",
+      "PolicyNumber__c": "HLT-2026-10098",
+      "PlanTier__c": "Family Floater",
+      "PremiumAmount__c": 9800,
+      "PolicyStartDate__c": "2026-03-01",
+      "PolicyEndDate__c": "2027-02-28",
+      "PolicyStatus__c": "Active",
+      "PaymentStatus__c": "Missed Last Payment",
+      "LastPremiumPaidDate__c": "2026-03-01",
+      "PolicyViolationNotes__c": ""
+    }
+  ]
+}
